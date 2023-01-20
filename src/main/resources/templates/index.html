@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Users</title>
+</head>
+<body>
+<br>
+<p><b><font size="5">PP_2_3_1_spring-mvc</font></b></p>
+<br>
+<div>
+    <p>
+        <a th:href="@{'/userCreate'}">
+            <input type="button" value="Add new User"/>
+        </a>
+    </p>
+    <table width="200" border="0">
+        <tbody>
+        <tr>
+            <td align="center"><b>&nbsp;ID&nbsp;</b></td>
+            <td align="center"><b>&nbsp;NAME&nbsp;</b></td>
+            <td align="center"><b>&nbsp;SURNAME&nbsp;</b></td>
+            <td align="center"><b>&nbsp;EMAIL&nbsp;</b></td>
+            <td align="center"><b></b></td>
+        </tr>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td align="center" th:text="${user.id}"></td>
+                <td align="center" th:text="${user.name}"></td>
+                <td align="center" th:text="${user.surname}"></td>
+                <td align="center" th:text="${user.email}"></td>
+                <td>&nbsp;</td>
+                <td>
+                    <a th:href="@{'/updateUserForm/?id=' + ${user.id}}">
+                        <input type="button" value="Update"/>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{'/deleteUser/?id=' + ${user.id}}">
+                        <input type="button" value="Delete"/>
+                    </a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <p>
+        <a th:href="@{'/userCreate'}">
+            <input type="button" value="Add new User"/>
+        </a>
+    </p>
+</div>
+</body>
+</html>

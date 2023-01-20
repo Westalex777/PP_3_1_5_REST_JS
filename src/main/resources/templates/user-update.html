@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:form="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>User form</title>
+</head>
+<body>
+<p></p>
+
+
+<form th:action="@{/updateUser(user=${user})}" th:object="${user}" method="post">
+      <input type="hidden" th:field="*{id}" id="id">
+  <table border="0" width="12%">
+    <tr>
+      <td></td>
+      <td align="center">
+        <p><b>User Create Form</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">Name</td>
+      <td align="left">
+        <input type="text" size="40" th:field="*{name}" id="name">
+      </td>
+    </tr>
+    <tr>
+      <td align="right">Surname</td>
+      <td align="left">
+        <input type="text" size="40" th:field="*{surname}" id="surname"></td>
+    </tr>
+    <tr>
+      <td align="right">E-mail</td>
+      <td align="left">
+        <input type="text" size="40" th:field="*{email}" id="email"></td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td align="center" >
+        <input type="submit" value="Update"><input type="reset" value="Reset" name="B2">
+      </td>
+    </tr>
+  </table>
+</form>
+
+
+
+</body>
+</html>

@@ -1,10 +1,16 @@
 package com.pp_3_1_2_springboot.dao;
 
 import com.pp_3_1_2_springboot.model.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -40,4 +46,15 @@ public class UserDaoImpl implements UserDao {
         return entityManager.find(User.class, id);
     }
 
+    @Override
+    public Optional<User> getUser(String email) {
+        User user = null;
+        try {
+            user = (User) entityManager.createQuery(
+                            "SELECT c FROM User c WHERE c.email LIKE :email")
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (EmptyResultDataAccessException | NoResultException ignored) {}
+        return Optional.ofNullable(user);
+    }
 }

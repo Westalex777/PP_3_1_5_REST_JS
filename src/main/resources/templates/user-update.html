@@ -5,39 +5,68 @@
   <title>User form</title>
 </head>
 <body>
+
+<p>
+  <a href="/logout">
+    <input type="button" value="Logout">
+  </a>
+</p>
+
 <p></p>
-
-
 <form th:action="@{/updateUser(user=${user})}" th:object="${user}" method="post">
       <input type="hidden" th:field="*{id}" id="id">
-  <table border="0" width="12%">
+  <table border="0" width="20%">
     <tr>
       <td></td>
       <td align="center">
-        <p><b>User Create Form</b></p>
+        <p><b>User Edit Form</b></p>
       </td>
     </tr>
     <tr>
-      <td align="right">Name</td>
+      <td align="right">First Name</td>
       <td align="left">
-        <input type="text" size="40" th:field="*{name}" id="name">
+        <input type="text" size="40" th:field="*{firstname}" id="name">
+      </td>
+    </tr>
+
+    <tr>
+      <td align="right">Last Name</td>
+      <td align="left">
+        <input type="text" size="40" th:field="*{lastname}" id="lastname"></td>
       </td>
     </tr>
     <tr>
-      <td align="right">Surname</td>
+      <td align="right">Age</td>
       <td align="left">
-        <input type="text" size="40" th:field="*{surname}" id="surname"></td>
+        <input type="number" size="40" th:field="*{age}" id="age"></td>
     </tr>
     <tr>
-      <td align="right">E-mail</td>
+      <td align="right">Email</td>
       <td align="left">
-        <input type="text" size="40" th:field="*{email}" id="email"></td>
+        <input type="email" size="40" th:field="*{email}" id="email"></td>
+    </tr>
+    <tr>
+      <td align="right">Password</td>
+      <td align="left">
+        <input type="password" size="40" th:field="*{password}" id="password"></td>
+    </tr>
+
+    <tr>
+      <td align="right">Role</td>
+      <td>
+        <select multiple th:field="*{rolesId}">
+          <option th:each="role : ${roles}"
+                  th:value="${role.id}"
+                  th:text="${role.name}">
+          </option>
+        </select>
       </td>
     </tr>
+
     <tr>
       <td></td>
       <td align="center" >
-        <input type="submit" value="Update"><input type="reset" value="Reset" name="B2">
+        <input type="submit" value="Edit"><input type="reset" value="Reset" name="B2">
       </td>
     </tr>
   </table>

@@ -57,7 +57,7 @@
         <select multiple th:field="*{rolesId}">
           <option th:each="role : ${roles}"
                   th:value="${role.id}"
-                  th:text="${role.name}">
+                  th:text="${role.getNameNotPrefix()}">
           </option>
         </select>
       </td>

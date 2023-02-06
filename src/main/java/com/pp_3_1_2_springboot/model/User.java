@@ -57,7 +57,7 @@ public class User implements UserDetails {
         this.rolesId = rolesId;
     }
 
-    public void setRoles(Role role) {
+    public void setRole(Role role) {
         roles.add(role);
     }
 

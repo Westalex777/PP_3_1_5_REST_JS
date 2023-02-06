@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         setRoles(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.updateUser(user);
     }
 
@@ -70,6 +71,6 @@ public class UserServiceImpl implements UserService {
     public void setRoles(User user) {
         user.getRolesId().stream()
                 .map(roleService::getRole)
-                .forEach(user::setRoles);
+                .forEach(user::setRole);
     }
 }

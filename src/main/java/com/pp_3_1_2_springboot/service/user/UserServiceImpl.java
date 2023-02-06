@@ -2,9 +2,8 @@ package com.pp_3_1_2_springboot.service.user;
 
 import com.pp_3_1_2_springboot.dao.UserDao;
 import com.pp_3_1_2_springboot.model.User;
-import com.pp_3_1_2_springboot.security.UserDetailsImpl;
 import com.pp_3_1_2_springboot.service.role.RoleService;
-import com.pp_3_1_2_springboot.service.user.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -64,12 +63,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getAuthenticationUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
-        return userDetailsImpl.getUser();
+        return (User) authentication.getPrincipal();
     }
 
     @Override
     public void setRoles(User user) {
-        user.getRolesId().stream().map(roleService::getRole).forEach(user::setRoles);
+        user.getRolesId().stream()
+                .map(roleService::getRole)
+                .forEach(user::setRoles);
     }
 }

@@ -12,9 +12,7 @@
     </a>
 </p>
 
-<p></p>
-
-<form  th:action="@{/addUser(user=${user})}"
+<form  th:action="@{addUser(user=${user})}"
         th:object="${user}" method="post">
     <table border="0" width="20%">
         <tr>
@@ -58,7 +56,7 @@
                         <select multiple th:field="*{rolesId}">
                             <option th:each="role : ${roles}"
                                     th:value="${role.id}"
-                                    th:text="${role.name}">
+                                    th:text="${role.getNameNotPrefix()}">
                             </option>
                         </select>
                     </td>

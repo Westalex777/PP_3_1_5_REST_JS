@@ -1,36 +1,25 @@
 package com.pp_3_1_2_springboot.controllers;
 
-import com.pp_3_1_2_springboot.model.Role;
 import com.pp_3_1_2_springboot.model.User;
 import com.pp_3_1_2_springboot.service.user.UserService;
 import com.pp_3_1_2_springboot.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class UserControllers {
+@RequestMapping("/admin")
+public class AdminControllers {
 
     private final UserService userService;
     private final RoleService roleService;
 
 
     @Autowired
-    public UserControllers(UserService userService, RoleService roleService) {
+    public AdminControllers(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-    }
-
-    @GetMapping("user")
-    public String userInfo(Model model) {
-        model.addAttribute("user", userService.getAuthenticationUser());
-        return "user-info";
     }
 
     @GetMapping
@@ -66,7 +55,7 @@ public class UserControllers {
         return "user-update";
     }
 
-    @PostMapping("updateUser")
+    @PostMapping("updateUserForm/updateUser")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:/";

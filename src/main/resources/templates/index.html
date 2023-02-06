@@ -2,7 +2,11 @@
 <html lang="en" xmlns:form="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+
+
     <title>Admin Panel</title>
+
+
 </head>
 <body>
 <p>
@@ -14,15 +18,20 @@
 <p th:text="${login}"></p>
 
 <br>
+
+<a href="/test">Test</a><br>
+
 <p><b><font size="5">Admin Panel</font></b></p>
 <br>
 <p><a href="/user">User Panel</a></p>
 <div>
     <p>
-        <a th:href="@{'/userCreate'}">
+        <a th:href="@{'/admin/userCreate'}">
             <input type="button" value="Add new User"/>
         </a>
     </p>
+
+
     <table width="200" border="1">
         <tbody>
 
@@ -43,17 +52,17 @@
                 <td align="center" th:text="${user.age}"></td>
                 <td align="center" th:text="${user.email}"></td>
                 <td align="center">
-                    <div th:each="roles : ${user.getRoles()}"
-                         th:text="${roles.getNameNotPrefix()}">
+                    <div th:each="role : ${user.getRoles()}"
+                         th:text="${role.getNameNotPrefix()}">
                     </div>
                 </td>
                 <td>
-                    <a th:href="@{'/updateUserForm/?id=' + ${user.id}}">
+                    <a th:href="@{'admin/updateUserForm/?id=' + ${user.id}}">
                         <input type="button" value="Edit"/>
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{'/deleteUser/?id=' + ${user.id}}">
+                    <a th:href="@{'admin/deleteUser/?id=' + ${user.id}}">
                         <input type="button" value="Delete"/>
                     </a>
                 </td>

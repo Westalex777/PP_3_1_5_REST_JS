@@ -2,7 +2,6 @@ package com.pp_3_1_2_springboot.service.user;
 
 import com.pp_3_1_2_springboot.dao.UserDao;
 import com.pp_3_1_2_springboot.model.User;
-import com.pp_3_1_2_springboot.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<User> user = userDao.getUser(username);
         if (user.isEmpty())
             throw new UsernameNotFoundException("User not found!");
-        return new UserDetailsImpl(user.get());
+        return user.get();
     }
 }

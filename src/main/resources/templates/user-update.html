@@ -13,7 +13,7 @@
 </p>
 
 <p></p>
-<form th:action="@{/updateUser(user=${user})}" th:object="${user}" method="post">
+<form th:action="@{updateUser(user=${user})}" th:object="${user}" method="post">
       <input type="hidden" th:field="*{id}" id="id">
   <table border="0" width="20%">
     <tr>

@@ -18,7 +18,5 @@ public interface UserService {
 
     public User getUser(int id);
 
-    public User getAuthenticationUser();
-
     public void setRoles(User user);
 }

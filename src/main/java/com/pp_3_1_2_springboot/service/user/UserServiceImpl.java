@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
 
-    @Autowired
     public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
@@ -59,12 +58,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(int id) {
         return userDao.getUser(id);
-    }
-
-    @Override
-    public User getAuthenticationUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getPrincipal();
     }
 
     @Override

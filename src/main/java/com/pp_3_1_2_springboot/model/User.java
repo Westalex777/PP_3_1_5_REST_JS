@@ -1,13 +1,13 @@
 package com.pp_3_1_2_springboot.model;
 
+import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -34,15 +34,32 @@ public class User implements UserDetails {
     @Column
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column
+    private String username;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "join_users_roles", joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
     transient private List<Integer> rolesId;
 
     public User() {
-        roles = new ArrayList<>();
+        roles = new HashSet<>();
+    }
+
+    public User(String firstname, String lastname, int age, String password, String email, String username, Set<Role> roles) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
+        this.password = password;
+        this.email = email;
+        this.username = username;
+        this.roles = roles;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     private void setRolesId() {
@@ -61,11 +78,11 @@ public class User implements UserDetails {
         roles.add(role);
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -106,7 +123,7 @@ public class User implements UserDetails {
         return this.roles.stream()
                 .map(Role::getName)
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     public String getPassword() {
@@ -158,5 +175,12 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public String getRolesToString() {
+        return roles.stream()
+                .map(Role::getNameNotPrefix)
+                .reduce((x, y) -> x + " " + y)
+                .orElse("");
     }
 }

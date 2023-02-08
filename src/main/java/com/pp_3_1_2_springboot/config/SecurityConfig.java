@@ -16,7 +16,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
     public SecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServiceImpl userDetailsService) {
         this.successUserHandler = successUserHandler;
         this.userDetailsService = userDetailsService;
@@ -26,9 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+//                .antMatchers("/**").permitAll()
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
                 .and()

@@ -1,4 +1,4 @@
-package com.pp_3_1_2_springboot.repositoties;
+package com.pp_3_1_2_springboot.repository;
 
 import com.pp_3_1_2_springboot.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

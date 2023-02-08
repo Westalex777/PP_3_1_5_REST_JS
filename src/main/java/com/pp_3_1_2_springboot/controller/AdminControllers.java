@@ -1,9 +1,9 @@
-package com.pp_3_1_2_springboot.controllers;
+package com.pp_3_1_2_springboot.controller;
 
 import com.pp_3_1_2_springboot.model.User;
 import com.pp_3_1_2_springboot.service.user.UserService;
 import com.pp_3_1_2_springboot.service.role.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +16,15 @@ public class AdminControllers {
     private final RoleService roleService;
 
 
-    @Autowired
     public AdminControllers(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping
-    public String getAllUser(Model model) {
+    public String getAllUser(Model model, @AuthenticationPrincipal User userAuth) {
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("login", userService.getAuthenticationUser().getEmail());
+        model.addAttribute("login", userAuth);
         return "index";
     }
 

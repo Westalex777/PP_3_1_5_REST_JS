@@ -15,7 +15,7 @@
     </a>
 </p>
 
-<p th:text="${login}"></p>
+<p th:text="${login.email}"></p>
 
 <br>
 
@@ -49,11 +49,7 @@
                 <td align="center" th:text="${user.lastname}"></td>
                 <td align="center" th:text="${user.age}"></td>
                 <td align="center" th:text="${user.email}"></td>
-                <td align="center">
-                    <div th:each="role : ${user.getRoles()}"
-                         th:text="${role.getNameNotPrefix()}">
-                    </div>
-                </td>
+                <td align="center" th:text="${user.getRolesToString()}"></td>
                 <td>
                     <a th:href="@{'admin/updateUserForm/?id=' + ${user.id}}">
                         <input type="button" value="Edit"/>

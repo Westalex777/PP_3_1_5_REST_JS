@@ -2,7 +2,6 @@ package com.pp_3_1_2_springboot.controller;
 
 import com.pp_3_1_2_springboot.service.role.RoleService;
 import com.pp_3_1_2_springboot.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

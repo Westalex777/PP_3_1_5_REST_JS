@@ -27,20 +27,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteUser(User user) {
         entityManager.createQuery("delete from User where id = :id")
-                .setParameter("id", id)
+                .setParameter("id", user.getId())
                 .executeUpdate();
     }
 
     @Override
     public void updateUser(User user) {
         entityManager.merge(user);
-    }
-
-    @Override
-    public User getUser(int id) {
-        return entityManager.find(User.class, id);
     }
 
     @Transactional(readOnly = true)
@@ -56,5 +51,10 @@ public class UserDaoImpl implements UserDao {
         } catch (EmptyResultDataAccessException | NoResultException ignored) {
         }
         return Optional.ofNullable(user);
+    }
+
+    @Override
+    public User getUser(int id) {
+        return entityManager.find(User.class, id);
     }
 }

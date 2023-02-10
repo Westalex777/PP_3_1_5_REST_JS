@@ -2,11 +2,6 @@ package com.pp_3_1_2_springboot.service.user;
 
 import com.pp_3_1_2_springboot.dao.UserDao;
 import com.pp_3_1_2_springboot.model.User;
-import com.pp_3_1_2_springboot.service.role.RoleService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,18 +13,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
-    private final RoleService roleService;
 
-    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, RoleService roleService) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
     }
 
     @Transactional
     @Override
     public void saveUser(User user) {
-        setRoles(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
     }
@@ -42,15 +34,18 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void deleteUser(int id) {
-        userDao.deleteUser(id);
+    public void deleteUser(User user) {
+        userDao.deleteUser(user);
     }
 
     @Transactional
     @Override
     public void updateUser(User user) {
-        setRoles(user);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword().equals("")) {
+            user.setPassword(getUser(user.getId()).getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userDao.updateUser(user);
     }
 
@@ -58,12 +53,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(int id) {
         return userDao.getUser(id);
-    }
-
-    @Override
-    public void setRoles(User user) {
-        user.getRolesId().stream()
-                .map(roleService::getRole)
-                .forEach(user::setRole);
     }
 }

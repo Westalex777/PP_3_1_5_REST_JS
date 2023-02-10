@@ -34,44 +34,28 @@ public class User implements UserDetails {
     @Column
     private String email;
 
-    @Column
-    private String username;
-
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "join_users_roles", joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    transient private List<Integer> rolesId;
-
     public User() {
         roles = new HashSet<>();
     }
 
-    public User(String firstname, String lastname, int age, String password, String email, String username, Set<Role> roles) {
+    public User(String firstname, String lastname, int age, String password, String email, Set<Role> roles) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.age = age;
         this.password = password;
         this.email = email;
-        this.username = username;
         this.roles = roles;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    private void setRolesId() {
-        roles.stream().map(Role::getId).forEach(x -> rolesId.add(x));
-    }
-
-    public List<Integer> getRolesId() {
-        return rolesId;
-    }
-
-    public void setRolesId(List<Integer> rolesId) {
-        this.rolesId = rolesId;
+    public Boolean isAdmin() {
+        return this.roles.stream()
+                .map(Role::getName)
+                .anyMatch(x -> x.equals("ROLE_ADMIN"));
     }
 
     public void setRole(Role role) {
@@ -180,6 +164,7 @@ public class User implements UserDetails {
     public String getRolesToString() {
         return roles.stream()
                 .map(Role::getNameNotPrefix)
+                .sorted()
                 .reduce((x, y) -> x + " " + y)
                 .orElse("");
     }

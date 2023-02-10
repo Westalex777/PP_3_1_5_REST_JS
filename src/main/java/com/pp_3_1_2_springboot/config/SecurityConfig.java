@@ -12,11 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final SuccessUserHandler successUserHandler;
     private final UserDetailsServiceImpl userDetailsService;
 
-    public SecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServiceImpl userDetailsService) {
-        this.successUserHandler = successUserHandler;
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -30,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
+                .formLogin()
                 .and()
                 .logout()
         ;

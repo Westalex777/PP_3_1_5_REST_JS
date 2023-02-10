@@ -9,14 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminControllers {
+public class AdminController {
 
     private final UserService userService;
     private final RoleService roleService;
 
 
-    public AdminControllers(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -24,37 +23,26 @@ public class AdminControllers {
     @GetMapping
     public String getAllUser(Model model, @AuthenticationPrincipal User userAuth) {
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("login", userAuth);
+        model.addAttribute("userAuth", userAuth);
+        model.addAttribute("newUser", new User());
+        model.addAttribute("roles", roleService.getAllRoles());
         return "index";
     }
 
-    @GetMapping("userCreate")
-    public String userCreate(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "user-create";
-    }
 
     @PostMapping("addUser")
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("newUser") User user) {
         userService.saveUser(user);
         return "redirect:/";
     }
 
-    @GetMapping("deleteUser")
-    public String deleteUser(@RequestParam("id") int id) {
-        userService.deleteUser(id);
+    @PostMapping("deleteUser")
+    public String deleteUser(@ModelAttribute("user") User user) {
+        userService.deleteUser(user);
         return "redirect:/";
     }
 
-    @GetMapping("updateUserForm")
-    public String updateUserForm(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "user-update";
-    }
-
-    @PostMapping("updateUserForm/updateUser")
+    @PostMapping("updateUser")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:/";

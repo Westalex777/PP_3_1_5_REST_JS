@@ -29,7 +29,6 @@ public class AdminController {
         return "index";
     }
 
-
     @PostMapping("addUser")
     public String saveUser(@ModelAttribute("newUser") User user) {
         userService.saveUser(user);

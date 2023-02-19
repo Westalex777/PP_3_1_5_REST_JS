@@ -1,10 +1,9 @@
-package com.pp_3_1_2_springboot.model;
+package com.pp_3_1_5.model;
 
-import org.hibernate.annotations.Fetch;
+import com.pp_3_1_5.dto.UserDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.*;
@@ -50,6 +49,16 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.roles = roles;
+    }
+
+    public User(UserDto userDto) {
+        this.id = userDto.getId();
+        this.firstname = userDto.getFirstname();
+        this.lastname = userDto.getLastname();
+        this.age = userDto.getAge();
+        this.password = userDto.getPassword();
+        this.email = userDto.getEmail();
+        this.roles = userDto.getRoles();
     }
 
     public Boolean isAdmin() {

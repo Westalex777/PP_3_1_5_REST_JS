@@ -1,4 +1,4 @@
-package com.pp_3_1_2_springboot;
+package com.pp_3_1_5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

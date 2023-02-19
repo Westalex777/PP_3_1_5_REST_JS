@@ -1,6 +1,6 @@
-package com.pp_3_1_2_springboot.repository;
+package com.pp_3_1_5.repository;
 
-import com.pp_3_1_2_springboot.model.Role;
+import com.pp_3_1_5.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

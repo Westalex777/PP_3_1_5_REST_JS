@@ -1,5 +1,6 @@
-package com.pp_3_1_2_springboot.model;
+package com.pp_3_1_5.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -51,6 +52,7 @@ public class Role implements GrantedAuthority {
                 '}';
     }
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return this.name;

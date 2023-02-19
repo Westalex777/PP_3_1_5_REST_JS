@@ -1,7 +1,8 @@
-package com.pp_3_1_2_springboot.service.user;
+package com.pp_3_1_5.service.user;
 
 
-import com.pp_3_1_2_springboot.model.User;
+import com.pp_3_1_5.dto.UserDto;
+import com.pp_3_1_5.model.User;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface UserService {
 
     public List<User> getAllUsers();
 
-    public void deleteUser(User user);
+    public void deleteUser(int id);
 
     public void updateUser(User user);
 

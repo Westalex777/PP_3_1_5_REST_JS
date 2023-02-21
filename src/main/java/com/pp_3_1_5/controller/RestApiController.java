@@ -27,7 +27,12 @@ public class RestApiController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers().stream().map(UserDto::new).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(
+                userService.getAllUsers()
+                        .stream()
+                        .map(UserDto::new)
+                        .collect(Collectors.toList())
+                , HttpStatus.OK);
     }
 
     @GetMapping("roles")

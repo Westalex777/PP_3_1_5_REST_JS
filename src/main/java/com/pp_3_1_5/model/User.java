@@ -61,12 +61,6 @@ public class User implements UserDetails {
         this.roles = userDto.getRoles();
     }
 
-    public Boolean isAdmin() {
-        return this.roles.stream()
-                .map(Role::getName)
-                .anyMatch(x -> x.equals("ROLE_ADMIN"));
-    }
-
     public void setRole(Role role) {
         roles.add(role);
     }
@@ -168,13 +162,5 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
-    }
-
-    public String getRolesToString() {
-        return roles.stream()
-                .map(Role::getNameNotPrefix)
-                .sorted()
-                .reduce((x, y) -> x + " " + y)
-                .orElse("");
     }
 }

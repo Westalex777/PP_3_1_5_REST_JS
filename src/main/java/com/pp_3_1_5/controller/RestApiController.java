@@ -27,12 +27,11 @@ public class RestApiController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        return new ResponseEntity<>(
-                userService.getAllUsers()
-                        .stream()
-                        .map(UserDto::new)
-                        .collect(Collectors.toList())
-                , HttpStatus.OK);
+        List<UserDto> usersDto =  userService.getAllUsers()
+                .stream()
+                .map(UserDto::new)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(usersDto, HttpStatus.OK);
     }
 
     @GetMapping("roles")
@@ -57,6 +56,6 @@ public class RestApiController {
     @DeleteMapping
     public HttpStatus deleteUser(@RequestBody UserDto userDto) {
         userService.deleteUser(userDto.getId());
-        return  HttpStatus.OK;
+        return HttpStatus.OK;
     }
 }

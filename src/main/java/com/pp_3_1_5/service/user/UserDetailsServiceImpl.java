@@ -27,8 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("User not found!");
         }
-        User user = userOptional.get();
-        Hibernate.initialize(user.getRoles());
-        return user;
+        Hibernate.initialize(userOptional.get().getRoles());
+        return userOptional.get();
     }
 }

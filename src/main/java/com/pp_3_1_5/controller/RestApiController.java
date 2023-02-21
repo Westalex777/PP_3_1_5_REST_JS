@@ -1,10 +1,7 @@
 package com.pp_3_1_5.controller;
 
 import com.pp_3_1_5.dto.UserDto;
-import com.pp_3_1_5.model.Role;
 import com.pp_3_1_5.model.User;
-import com.pp_3_1_5.service.role.RoleService;
-import com.pp_3_1_5.service.role.RoleServiceImpl;
 import com.pp_3_1_5.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/admin/users")
 public class RestApiController {
 
-    private final RoleService roleService;
     private final UserService userService;
 
-    public RestApiController(RoleServiceImpl roleService, UserService userService) {
-        this.roleService = roleService;
+    public RestApiController(UserService userService) {
         this.userService = userService;
     }
 
@@ -32,11 +27,6 @@ public class RestApiController {
                 .map(UserDto::new)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(usersDto, HttpStatus.OK);
-    }
-
-    @GetMapping("roles")
-    public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
 
     @PostMapping

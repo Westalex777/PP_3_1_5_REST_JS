@@ -1,7 +1,5 @@
 package com.pp_3_1_5.service.user;
 
-
-import com.pp_3_1_5.dto.UserDto;
 import com.pp_3_1_5.model.User;
 
 import java.util.List;

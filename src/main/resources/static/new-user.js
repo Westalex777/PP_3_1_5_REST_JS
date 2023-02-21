@@ -33,7 +33,7 @@ form.addEventListener('submit', (event) => {
 
     let user = new User(0, data.firstname, data.lastname, data.age, data.email, selectedValues, data.password);
 
-    fetch('api', {
+    fetch('api/admin/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ form.addEventListener('submit', (event) => {
 
                 let user = new User(data.id, data.firstname, data.lastname, data.age, data.email, selectedValues, data.password);
 
-                fetch('api', {
+                fetch('api/admin/users', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -149,7 +149,7 @@ form.addEventListener('submit', (event) => {
                     data[key] = value;
                 }
 
-                fetch('api', {
+                fetch('api/admin/users', {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
@@ -177,6 +177,6 @@ form.addEventListener('submit', (event) => {
 });
 
 async function fetchRoles() {
-    const response = await fetch('api/roles');
+    const response = await fetch('api/admin/roles');
     return await response.json();
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthRestApiController {
 
-    @GetMapping("auth")
+    @GetMapping("api/auth")
     public ResponseEntity<UserDto> userAuth(@AuthenticationPrincipal User userAuth) {
         return new ResponseEntity<>(new UserDto(userAuth), HttpStatus.OK);
     }

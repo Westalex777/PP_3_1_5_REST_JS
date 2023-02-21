@@ -1,6 +1,6 @@
 import {User, Role} from './model.js';
 
-fetch("auth")
+fetch("api/auth")
     .then(response => response.json())
     .then(data => {
 
@@ -67,7 +67,7 @@ function tableUsers() {
     const adminButton = $('a[href="#adminPanel"]');
     adminButton.click();
 
-    const url = "api"; // Запрос на Rest для получения списка юзеров
+    const url = "api/admin/users"; // Запрос на Rest для получения списка юзеров
     const tbody = document.getElementById("table-users");
 
     fetch(url)
@@ -133,7 +133,7 @@ function tableUsers() {
 
                     let user = new User(data.id, data.firstname, data.lastname, data.age, data.email, selectedValues, data.password);
 
-                    fetch('api', {
+                    fetch('api/admin/users', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -178,7 +178,7 @@ function tableUsers() {
                         data[key] = value;
                     }
 
-                    fetch('api', {
+                    fetch('api/admin/users', {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
@@ -343,7 +343,7 @@ export function editButton(user) { // Добавляет кнопку Edit и м
 }
 
 async function fetchRoles() {
-    const response = await fetch('api/roles');
+    const response = await fetch('api/admin/roles');
     const data = await response.json();
     return data;
 }

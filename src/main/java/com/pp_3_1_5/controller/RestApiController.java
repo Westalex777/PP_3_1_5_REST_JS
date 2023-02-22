@@ -44,8 +44,8 @@ public class RestApiController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<HttpStatus> deleteUser(@RequestBody UserDto userDto) {
         userService.deleteUser(userDto.getId());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

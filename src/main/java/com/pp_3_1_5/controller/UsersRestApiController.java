@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/admin/users")
-public class RestApiController {
+public class UsersRestApiController {
 
     private final UserService userService;
 
-    public RestApiController(UserService userService) {
+    public UsersRestApiController(UserService userService) {
         this.userService = userService;
     }
 

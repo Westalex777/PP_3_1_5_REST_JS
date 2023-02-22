@@ -13,6 +13,6 @@ public class AuthRestApiController {
 
     @GetMapping("api/auth")
     public ResponseEntity<UserDto> userAuth(@AuthenticationPrincipal User userAuth) {
-        return new ResponseEntity<>(new UserDto(userAuth), HttpStatus.OK);
+        return ResponseEntity.ok(new UserDto(userAuth));
     }
 }

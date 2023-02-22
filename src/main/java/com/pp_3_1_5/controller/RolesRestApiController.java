@@ -22,6 +22,6 @@ public class RolesRestApiController {
 
     @GetMapping
     public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
+        return ResponseEntity.ok(roleService.getAllRoles());
     }
 }

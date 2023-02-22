@@ -26,26 +26,26 @@ public class RestApiController {
                 .stream()
                 .map(UserDto::new)
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(usersDto, HttpStatus.OK);
+        return ResponseEntity.ok(usersDto);
     }
 
     @PostMapping
     public ResponseEntity<UserDto> newUser(@RequestBody UserDto userDto) {
         User user = new User(userDto);
         userService.saveUser(user);
-        return new ResponseEntity<>(new UserDto(user), HttpStatus.OK);
+        return ResponseEntity.ok(new UserDto(user));
     }
 
     @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
         User user = new User(userDto);
         userService.updateUser(user);
-        return new ResponseEntity<>(new UserDto(user), HttpStatus.OK);
+        return ResponseEntity.ok(new UserDto(user));
     }
 
     @DeleteMapping
-    public HttpStatus deleteUser(@RequestBody UserDto userDto) {
+    public ResponseEntity deleteUser(@RequestBody UserDto userDto) {
         userService.deleteUser(userDto.getId());
-        return HttpStatus.OK;
+        return ResponseEntity.ok().build();
     }
 }
